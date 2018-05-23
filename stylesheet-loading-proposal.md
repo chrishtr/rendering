@@ -1,18 +1,18 @@
-* The following is a summary proposal for changes to the HTML spec regarding stylesheet loading, with the goal of improving reliability, understandability, determinism and browser compatibility, while not sacrificing performance.
+The following is a summary proposal for changes to the HTML spec regarding stylesheet loading, with the goal of improving reliability, understandability, determinism and browser compatibility, while not sacrificing performance.
 
-** Pending parsing blocking style sheets
+# Pending parsing blocking style sheets
 
-The HTML spec currently specifies the concept of a [pending parsing blocking script](https://html.spec.whatwg.org/#pending-parsing-blocking-script). This
+The HTML spec currently specifies the concept of a [pending parsing blocking script](https://html.spec.whatwg.org/multipage/scripting.html#pending-parsing-blocking-script). This
 will be extended to include the definition of a _pending parsing blocking
 style sheet_.
 
 A _pending parsing blocking style sheet_ is any style sheet that is parser-inserted, or declared in a parser-inserted style sheet via @import, regardless of its location in the HTML.
 
-** HTML parser blocks in all phases
+# HTML parser blocks in all phases
 
 The HTML parser is changed to be blocked by any pending parsing blocking style sheets, via the same mechanism as that for _pending parsing blocking script_: the [text insertion mode](https://html.spec.whatwg.org/#parsing-main-incdata:pending-parsing-blocking-script) of the HTML parser.
 
-** Rendering starts at <body>
+# Rendering starts at <body>
 
 Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model), _update the rendering_
 will only begin happening once:
@@ -27,7 +27,7 @@ after step 7.3.
 Further, step 7 will be specified to always use all style sheets
 which [have beeen added](https://drafts.csswg.org/cssom/#add-a-css-style-sheet) to the document.
 
-** Preload scanning defined
+# Preload scanning defined
 
 Add a definition of a preload scanner. The preload scanner may parse and
 analyze the HTML document, or any external resources, in order to pre-load
@@ -38,16 +38,20 @@ Note: the pre-load scanner may affect the order in which resources are obtained,
 
 Example: if a style sheet has the rule:
 
+```
 .class-name {
   background-image: url("https://example.com/example.png");
 }
+```
 
 then example.png would not be pre-loaded, because it is not guaranteed that
 there will be a DOM element with class name "class-name".
 
 However, in the following example, example.png could be pre-loaded if it the preload scanner could verify that the media query applied to the document.
 
-@media (640x480)
+```
+@media (max-width: 600px)
 body {
   background-image: url("https://example.com/example.png");
 }
+```
