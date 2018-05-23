@@ -6,7 +6,7 @@ The HTML spec currently specifies the concept of a [pending parsing blocking scr
 will be extended to include the definition of a _pending parsing blocking
 style sheet_.
 
-A _pending parsing blocking style sheet_ is any style sheet that is parser-inserted, or declared in a parser-inserted style sheet via `@import`, regardless of its location in the HTML.
+A _pending parsing blocking style sheet_ is any [style sheet that is blocking script](https://html.spec.whatwg.org/multipage/semantics.html#interactions-of-styling-and-scripting) that is parser-inserted, or declared in a parser-inserted style sheet via `@import`, regardless of its location in the HTML.
 
 # HTML parser blocks in all phases
 
@@ -16,9 +16,7 @@ The HTML parser is changed to be blocked by any pending parsing blocking style s
 
 Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model), _update the rendering_
 will only begin happening once:
-* A parser-inserted `<body>` element has been added to the DOM, and
-* All style sheets specified in any `<head>` element inserted before that
-`<body>` tag have obtained.
+* A parser-inserted `<body>` element has been added to the DOM
 
 Once begun, step 7 will always happen in the future during the lifetime
 of the document, subject to throttling or stopping notes mentioned in the Note
@@ -31,27 +29,6 @@ which [have beeen added](https://drafts.csswg.org/cssom/#add-a-css-style-sheet) 
 
 Add a definition of a preload scanner. The preload scanner may parse and
 analyze the HTML document, or any external resources, in order to pre-load
-network resources. However, any external resource specified within a style
-sheet resource may only be pre-loaded if the resource is *guaranteed* to be needed to style the HTML document.
+network resources.
 
-Note: the pre-load scanner may affect the order in which resources are obtained, and may induce side-effects in cases where a server providing the resource over the network maintain states, and may be observable to Service Workers. The requirement to only load resources which are guaranteed to be needed is in order to avoid (a) excessive network resource use, and (b) unexpected side-effects due to style sheet rules which have no rendering effect.
-
-Example: if a style sheet has the rule:
-
-```
-.class-name {
-  background-image: url("https://example.com/example.png");
-}
-```
-
-then example.png would not be pre-loaded, because it is not guaranteed that
-there will be a DOM element with class name "class-name".
-
-However, in the following example, example.png could be pre-loaded if it the preload scanner could verify that the media query applied to the document.
-
-```
-@media (max-width: 600px)
-body {
-  background-image: url("https://example.com/example.png");
-}
-```
+Note: the pre-load scanner may affect the order in which resources are obtained, and may induce side-effects in cases where a server providing the resource over the network maintain states, and may be observable to Service Workers.
