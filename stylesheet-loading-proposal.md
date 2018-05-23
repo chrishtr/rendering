@@ -6,7 +6,7 @@ The HTML spec currently specifies the concept of a [pending parsing blocking scr
 will be extended to include the definition of a _pending parsing blocking
 style sheet_.
 
-A _pending parsing blocking style sheet_ is any style sheet that is parser-inserted, or declared in a parser-inserted style sheet via @import, regardless of its location in the HTML.
+A _pending parsing blocking style sheet_ is any style sheet that is parser-inserted, or declared in a parser-inserted style sheet via `@import`, regardless of its location in the HTML.
 
 # HTML parser blocks in all phases
 
@@ -16,9 +16,9 @@ The HTML parser is changed to be blocked by any pending parsing blocking style s
 
 Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model), _update the rendering_
 will only begin happening once:
-* A parser-inserted <body> element has been added to the DOM, and
-* All style sheets specified in any <head> element inserted before that <body>
-have obtained.
+* A parser-inserted `<body>` element has been added to the DOM, and
+* All style sheets specified in any `<head>` element inserted before that
+`<body>` tag have obtained.
 
 Once begun, step 7 will always happen in the future during the lifetime
 of the document, subject to throttling or stopping notes mentioned in the Note
