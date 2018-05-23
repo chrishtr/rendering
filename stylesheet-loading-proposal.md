@@ -27,8 +27,6 @@ which [have beeen added](https://drafts.csswg.org/cssom/#add-a-css-style-sheet) 
 
 # Preload scanning defined
 
-Add a definition of a preload scanner. The preload scanner may parse and
-analyze the HTML document, or any external resources, in order to pre-load
-network resources.
+Add a definition of a preload scanner. A HTML preload scanner may parse and analyze the document ahead of the main parser to detect any external resources that are likely to be needed.  The use of a preload scanner mitigates the performance benefits of loading stylesheets asynchronously and removes the burden from the main parser for detecting resources as soon as possible for loading.
 
-Note: the pre-load scanner may affect the order in which resources are obtained, and may induce side-effects in cases where a server providing the resource over the network maintain states, and may be observable to Service Workers.
+Note: the preload scanner may affect the order in which resources are obtained, and may induce side-effects in cases where a server providing the resource over the network maintain states, and may be observable to Service Workers.
