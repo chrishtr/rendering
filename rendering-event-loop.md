@@ -46,8 +46,7 @@ tasks in the queue which may run the script. This means that:
 
 ## Rendering: step 7 of the browsing context event loop
 
-Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
-processing-model), is the steps to get ready and "update the rendering". This is
+Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model), is the steps to get ready and "update the rendering". This is
 spec'ed to potentially happen at the end of processing every task in a browsing
 context event loop. However, it is also specified that these steps need not
 happen after every task, and may be throttled to a specified framerate, or for
@@ -90,8 +89,7 @@ preclude it either.)
 Chrome implements step 7 of the browsing context event loop via what it calls a
 "BeginMainFrame" task. BeginMainFrame tasks are scheduled at 60Hz, but only if
 some rendering-related state has changed that necessitates the rendering update.
-For Chromium, steps 1-6 from the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
-processing-model) do not necessarily run any task in particular. However,
+For Chromium, steps 1-6 from the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model) do not necessarily run any task in particular. However,
 Chromium resolves promises of image decode tasks (step 1 below), and dispatches
 input events (step 3) that have need to be rendering-time aligned. In addition,
 some syncing happens from the compositor thread (step 2) The processing time of
