@@ -55,9 +55,14 @@ other reasons.
 
 The update-the-rendering steps in the HTML specification are:
 
-1. Resize 2. Scroll 3. Media queries 4. Update animations, fire animation events
-5. Fire fullscreen events 6. Run animation frame callbacks 7. Update
-intersection observations 8. "Update the rendering" (draw things to the screen)
+1. Resize
+2. Scroll
+3. Media queries
+4. Update animations, fire animation events
+5. Fire fullscreen events
+6. Run animation frame callbacks
+7. Update intersection observations
+8. "Update the rendering" (draw things to the screen)
 
 The spec has no concept of style or layout computation. It's assumed to be
 synchronously implied by DOM changes, even before step 1 above happens.
@@ -95,21 +100,33 @@ these cases are not currently spec'd.
 
 Chromium steps:
 
-1. Add callbacks for completed image decodes to microtask queue  2. Synchronize
-compositor thread scroll and scale to main thread 3. Dispatch input events which
-are rAF aligned (therefore calling into script) 4. Update autoscroll animations
-5. Update other scroll animations 6. Update snap fling animations 7. Update SVG
-animations 8. Update media sources based on media query changes 9. Dispatch
-declarative animation events 10. Dispatch fullscreen events 11. Call rAF
-callbacks 12. Update "validation message" overlay 13. Update style [figure out
-ComputedStyles of DOM elements] 14. Update layout [size and place DOM on
-relative to a screen viewport] 15. Adjust for scroll anchoring 16. Notify resize
-observers 17. Notify sub-frames of change to their viewport size & location 18.
-Commit pending selection ([spec](https://w3c.github.io/selection-api)) 19.
-Update Blink compositing [decide texture backing strategy for DOM] 20. Update
-Blink property trees and invalidate paint as needed 21. Update intersection
-observations 22. Update paint 23. Update touch event regions and main-thread
-scrolling reasons 24. Invalidate raster 25. Commit paint output to compositor
+1. Add callbacks for completed image decodes to microtask queue
+2. Synchronize compositor thread scroll and scale to main thread
+3. Dispatch input events which are requestAnimationFrame aligned (therefore
+calling into script)
+4. Update autoscroll animations
+5. Update other scroll animations
+6. Update snap fling animations
+7. Update SVG animations
+8. Update media sources based on media query changes
+9. Dispatchdeclarative animation events
+10. Dispatch fullscreen events
+11. Call requestAnimationFramecallbacks
+12. Update "validation message" overlay
+13. Update style [figure out ComputedStyles of DOM elements]
+14. Update layout [size and place DOM on relative to a screen viewport]
+15. Adjust for scroll anchoring
+16. Notify resize observers
+17. Notify sub-frames of change to their viewport size & location
+18. Commit pending selection ([spec](https://w3c.github.io/selection-api))
+19. Update Blink compositing [decide texture backing strategy for DOM]
+20. Update Blink property trees and invalidate paint
+21. Update intersectionobservations
+22. Update paint
+23. Update touch event regions and main-thread
+scrolling reasons
+24. Invalidate raster
+25. Commit paint output to compositor
 thread
 
 # Parallel aspects to Chromium behavior
