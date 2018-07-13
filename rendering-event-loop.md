@@ -1,6 +1,15 @@
 ### Event loops
 
-HTML and script in web pages use an event loop-driven model of computation. The event loops for HTML are defined [here](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop). Tasks on an event loop live in one or more [task queues](https://html.spec.whatwg.org/multipage/webappapis.html#task-queue), and each loop only has one task at a time. Event loops also have [microtask queues](https://html.spec.whatwg.org/multipage/webappapis.html#microtask), which are processed all-at-once at times when [microtask checkpoints](https://html.spec.whatwg.org/#perform-a-microtask-checkpoint) are specified to happen.
+HTML and script in web pages use an event loop-driven model of computation. The
+event loops for HTML are defined
+[here](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop). Tasks
+on an event loop live in one or more [task
+queues](https://html.spec.whatwg.org/multipage/webappapis.html#task-queue), and
+each loop only has one task at a time. Event loops also have [microtask
+queues](https://html.spec.whatwg.org/multipage/webappapis.html#microtask), which
+are processed all-at-once at times when [microtask
+checkpoints](https://html.spec.whatwg.org/#perform-a-microtask-checkpoint) are
+specified to happen.
 
 Microtask checkpoints happen immediately after script yields, and also at various points where microtasks may have been enqueued for other reasons not related to script. In such cases, there should always be a microtask checkpoint before script has an opportunity to run.
 
