@@ -1,6 +1,6 @@
 ### Event loops
 
-HTML and script in web pages use an event loop-driven model of computation. The event loops for HTML are defined [here](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop). Tasks on an event loop live in one or more [task queues](https://html.spec.whatwg.org/multipage/webappapis.html#task-queue), and each loop only has one task at a time. Event loops also have [microtask queues](https://html.spec.whatwg.org/multipage/webappapis.html#microtask), which are generally processed all-at-once at the end of each task.
+HTML and script in web pages use an event loop-driven model of computation. The event loops for HTML are defined [here](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop). Tasks on an event loop live in one or more [task queues](https://html.spec.whatwg.org/multipage/webappapis.html#task-queue), and each loop only has one task at a time. Event loops also have [microtask queues](https://html.spec.whatwg.org/multipage/webappapis.html#microtask), which are generally processed all-at-once at the end of each time script may run, or at the end of tasks. These are called [microtask checkpoints](https://html.spec.whatwg.org/#perform-a-microtask-checkpoint).
 
 While there can only be one task at a time on an event loop, tasks can execute
 [in parallel](https://html.spec.whatwg.org/#parallelism) in some cases, and also generate promises to mark their completion. These promises, which can be held onto by script, run completion microtasks (see also [this spec text](https://html.spec.whatwg.org/#integration-with-the-javascript-job-queue)) when the underlying (async) task is complete.
@@ -11,7 +11,7 @@ There are several event loops, but the most important is the
 [browsing context](https://html.spec.whatwg.org/multipage/browsers.html#browsing-context) event loop. This event loop is special because it is where tasks related to
 * document-loaded scripts (as opposed to worker scripts),
 * DOM,
-* input event processing, and
+* input event processing
 * rendering updates
 
 all occur.
@@ -55,35 +55,35 @@ Note also that *script observability* (a script program can see the difference) 
 
 # Chromium rendering behavior
 
-Chrome implements step 7 via what it calls a "BeginMainFrame" task. BeginMainFrame tasks are scheduled at 60Hz, but only if some rendering-related state has changed that necessitates the rendering update. For Chromium, steps 1-6 from the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model) do not necessarily run any task in particular. However, Chromium resolves promises of image decode tasks (step a), and dispatches input events (step c) that have need to be rendering-time aligned. In addition, some syncing happens from the compositor thread (step b) The processing time of these two cases are not currently spec'd.
+Chrome implements step 7 via what it calls a "BeginMainFrame" task. BeginMainFrame tasks are scheduled at 60Hz, but only if some rendering-related state has changed that necessitates the rendering update. For Chromium, steps 1-6 from the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model) do not necessarily run any task in particular. However, Chromium resolves promises of image decode tasks (step 1 below), and dispatches input events (step 3) that have need to be rendering-time aligned. In addition, some syncing happens from the compositor thread (step 2) The processing time of these cases are not currently spec'd.
 
 Chromium steps:
 
-a. Add callbacks for completed image decodes to microtask queue 
-b. Synchronize compositor thread scroll and scale to main thread
-c. Dispatch input events which are rAF aligned (therefore calling into script etc)
-d. Update autoscroll animations
-e. Update other scroll animations
-f. Update snap fling animations
-g. Update SVG animations
-h. Update media sources based on media query changes
-i. Dispatch declarative animation events
-j. Dispatch fullscreen events
-k. Call rAF callbacks
-l. Update "validation message" overlay
-m. Update style [figure out ComputedStyles of DOM elements]
-n. Update layout [size and place DOM on relative to a screen viewport]
-o. Adjust for scroll anchoring
-p. Notify resize observers
-q. Notify sub-frames of change to their viewport size & location
-r. Commit pending selection ([spec](https://w3c.github.io/selection-api))
-s. Update Blink compositing [decide texture backing strategy for DOM]
-t. Update Blink property trees and invalidate paint as needed
-t. Update intersection observations
-u. Update paint
-v. Update touch event regions and main-thread scrolling reasons
-w. Invalidate raster
-w. Commit paint output to compositor thread
+1. Add callbacks for completed image decodes to microtask queue 
+2. Synchronize compositor thread scroll and scale to main thread
+3. Dispatch input events which are rAF aligned (therefore calling into script tc)
+4. Update autoscroll animations
+5. Update other scroll animations
+6. Update snap fling animations
+7. Update SVG animations
+8. Update media sources based on media query changes
+9. Dispatch declarative animation events
+10. Dispatch fullscreen events
+11. Call rAF callbacks
+12. Update "validation message" overlay
+13. Update style [figure out ComputedStyles of DOM elements]
+14. Update layout [size and place DOM on relative to a screen viewport]
+15. Adjust for scroll anchoring
+16. Notify resize observers
+17. Notify sub-frames of change to their viewport size & location
+18. Commit pending selection ([spec](https://w3c.github.io/selection-api))
+19. Update Blink compositing [decide texture backing strategy for DOM]
+20. Update Blink property trees and invalidate paint as needed
+21. Update intersection observations
+22. Update paint
+23. Update touch event regions and main-thread scrolling reasons
+24. Invalidate raster
+25. Commit paint output to compositor thread
 
 # Parallel aspects to Chromium behavior
 
