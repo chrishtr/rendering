@@ -39,14 +39,14 @@ and HTMLCanvasElement.{toBlob,convertToBlob} to be in parallel.
 However, any task which affects data observable by a script (i.e. specific to a
 particular script realm, global or environment settings object) [must not run in
 parallel](https://html.spec.whatwg.org/#event-loop-for-spec-authors) to other
-tasks in the queue which may run the script. This means that: * Script can not
-be run in parallel with script from the same realm * DOM (which is script-
-observable) cannot be mutated in parallel with script
+tasks in the queue which may run the script. This means that:
+
+* Script can not be run in parallel with script from the same realm
+* DOM (which is script-observable) cannot be mutated in parallel with script
 
 ## Rendering: step 7 of the browsing context event loop
 
-Step 7 of the [event loop processing
-model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
+Step 7 of the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
 processing-model), is the steps to get ready and "update the rendering". This is
 spec'ed to potentially happen at the end of processing every task in a browsing
 context event loop. However, it is also specified that these steps need not
@@ -90,8 +90,7 @@ preclude it either.)
 Chrome implements step 7 of the browsing context event loop via what it calls a
 "BeginMainFrame" task. BeginMainFrame tasks are scheduled at 60Hz, but only if
 some rendering-related state has changed that necessitates the rendering update.
-For Chromium, steps 1-6 from the [event loop processing
-model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
+For Chromium, steps 1-6 from the [event loop processing model](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-
 processing-model) do not necessarily run any task in particular. However,
 Chromium resolves promises of image decode tasks (step 1 below), and dispatches
 input events (step 3) that have need to be rendering-time aligned. In addition,
