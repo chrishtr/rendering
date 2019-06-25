@@ -1,0 +1,3 @@
+Rendering architecture.
+
+Fill in!
