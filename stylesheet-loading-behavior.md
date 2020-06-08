@@ -1,6 +1,6 @@
 ### Stylesheet loading behavior
 
-_Last updated: May 2018_
+_Last updated: June 2020_
 _Chris Harrelson (chrishtr@google.com)_
 *Based in part on research by others, including esprehn@google.com and
 pmeenan@google.com.*
@@ -65,18 +65,14 @@ Definitions:
   * rAF callbacks begin running immediately once the page starts loading, even before Painting DOM Elements starts.
   * FOUC-avoidance strategy: put all critical style sheets in the `<head>`; do not use `@import`; don't force style recalc during load. Non-critical style sheets should be put in `<body>`, and before all DOM that they apply to.
 
-# Blink (before launch of [this intent-to-ship](https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/QC5iefctcag))
-  * Block Painting DOM Elements of *all elements* (not just those preceded by a sheet) for any parser-inserted style sheet, regardless of where it is in the DOM, and even for those declared via `@import` within another style sheet.
-  * Forced Style Recalc does not result in Painting DOM Elements, but there are some buggy edge cases.
-  * rAF callbacks begin once all style sheets, including those declared inside `@import` of another style sheet, which are present before `<body>`, are loaded.
-  * FOUC-avoidance strategy: put all critical style sheets in the `<head>`; don't force style recalc during load. Non-critical style sheets should be put in `<body>`. To ensure maximum progressiveness of rendering, they can be followed by an empty script block to force the parser to block on style sheet load.
 
-# Blink (after launch)
+
+# Blink
   * Start Rendering after observing the first `<body>` tag and all parser-inserted style sheets before that time have obtained, including those declared via `@import` from another style sheet.
   * Block the HTML Parser for all style sheets that are parser-inserted after the first `<body>` tag, including those declared via `@import` from another style sheet.
   * FOUC-avoidance strategy: put all critical style sheets in the `<head>`. Non-critical style sheets should be put in `<body>` and before all DOM that they apply to.
 
-# Blink (longer term) (!)
+# Blink (later in 2020) (!)
 
   * Start Rendering after observing the first `<body>` tag.
   * Block the HTML Parser for all style sheets, including those declared via
@@ -84,4 +80,11 @@ Definitions:
   * FOUC-avoidance strategy: put style sheets before DOM that they apply to.
 
 
- (!) This can happen once [HTML Imports](https://developer.mozilla.org/en-US/docs/Web/Web_Components/HTML_Imports) are gone, since the Blink preload scanner doesn't understand HTML Imports. At this point Blink will be fully compliant with the [proposed spec change](stylesheet-loading-proposal.md).
+ (!) This can happen once [HTML Imports](https://developer.mozilla.org/en-US/docs/Web/Web_Components/HTML_Imports) are gone, since the Blink preload scanner doesn't understand HTML Imports. At this point Blink will be fully compliant with the [proposed spec change](stylesheet-loading-proposal.md). HTML imports were [removed in Chromium 80](https://chromestatus.com/features/5144752345317376).
+ 
+ 
+ # Blink (before Chromium 69) NOTE: this is for historical use only, this behavior has been changed.
+  * Block Painting DOM Elements of *all elements* (not just those preceded by a sheet) for any parser-inserted style sheet, regardless of where it is in the DOM, and even for those declared via `@import` within another style sheet.
+  * Forced Style Recalc does not result in Painting DOM Elements, but there are some buggy edge cases.
+  * rAF callbacks begin once all style sheets, including those declared inside `@import` of another style sheet, which are present before `<body>`, are loaded.
+  * FOUC-avoidance strategy: put all critical style sheets in the `<head>`; don't force style recalc during load. Non-critical style sheets should be put in `<body>`. To ensure maximum progressiveness of rendering, they can be followed by an empty script block to force the parser to block on style sheet load.
