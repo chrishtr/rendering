@@ -80,7 +80,7 @@ Definitions:
   * FOUC-avoidance strategy: put style sheets before DOM that they apply to.
 
 
- (!) This can happen once [HTML Imports](https://developer.mozilla.org/en-US/docs/Web/Web_Components/HTML_Imports) are gone, since the Blink preload scanner doesn't understand HTML Imports. At this point Blink will be fully compliant with the [proposed spec change](stylesheet-loading-proposal.md). HTML imports were [removed in Chromium 80](https://chromestatus.com/features/5144752345317376).
+ (!) This can happen now that [HTML Imports](https://developer.mozilla.org/en-US/docs/Web/Web_Components/HTML_Imports) are gone, since the Blink preload scanner doesn't understand HTML Imports. At this point Blink will be fully compliant with the [proposed spec change](stylesheet-loading-proposal.md). HTML imports were [removed in Chromium 80](https://chromestatus.com/features/5144752345317376).
  
  
  # Blink (before Chromium 69) NOTE: this is for historical use only, this behavior has been changed.
