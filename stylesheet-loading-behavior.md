@@ -57,15 +57,13 @@ Definitions:
   * rAF callbacks begin running immediately once the page starts loading, even before Painting DOM Elements starts.
   * FOUC-avoidance strategy: put all critical style sheets in the `<head>`; don't force style recalc during load. Non-critical style sheets should be put in `<body>`, and before all DOM that they apply to. To ensure maximum progressiveness of rendering and bypass a few edge cases, they can be followed by an empty script block to force the parser to block on style sheet load.
 
-# Edge
+# EdgeHTML (replaced by Chromium-based Edge in 2020 for new installs)
   * Blocks Painting DOM Elements on obtaining all style sheets declared as a descendant of `<head>`, including those declared via `@import` within another style sheet.
   * Blocks the HTML Parser for all style sheets, even descendants of `<head>`, except for style sheets declared via `@import` within another style sheet.
   * `@import`-declared style sheets are applied to Painting DOM Elements as they come in, and are not applied atomically, even if they are @imported from the same style sheet parent.
   * Forced Style Recalc does not result in Painting DOM Elements if the parser is still in `<head>`; otherwise Painting DOM Elements is forced and a FOUC results.
   * rAF callbacks begin running immediately once the page starts loading, even before Painting DOM Elements starts.
   * FOUC-avoidance strategy: put all critical style sheets in the `<head>`; do not use `@import`; don't force style recalc during load. Non-critical style sheets should be put in `<body>`, and before all DOM that they apply to.
-
-
 
 # Blink
   * Start Rendering after observing the first `<body>` tag and all parser-inserted style sheets before that time have obtained, including those declared via `@import` from another style sheet.
