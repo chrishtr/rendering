@@ -21,6 +21,8 @@ We propose to close those gaps.
 
 4. Support for specifying a CSS transition delay on entry to or exit from the top layer via a top-layer CSS property (that is in effect restricted CSS transitions). It’s tracked in [this CSSWG issue](https://github.com/w3c/csswg-drafts/issues/8189) for standardization and [this chromestatus entry](https://chromestatus.com/feature/5138724910792704).
 
+5. Ensuring exit animations are inert to user input, to avoid accidental clicks against content that no longer conceptually visible. It's tracked in [this CSSWG issue](https://github.com/w3c/csswg-drafts/issues/8389) for standardization.
+
 With these four changes, web developers will be able to use CSS transitions and CSS animations for discrete-animatable properties, the display CSS property, and a CSS transition (but not CSS animations; see Alternatives Considered for why) for the top layer.
 
 ## Alternatives Considered
