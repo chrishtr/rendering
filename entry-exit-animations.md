@@ -32,6 +32,51 @@ With these five changes, web developers will be able to use CSS transitions and 
 
 Instructions for a complete working example that works on Chrome Canary (with flags on) is [here](https://github.com/w3c/csswg-drafts/issues/8189#issuecomment-1464556841).
 
+Inline:
+
+```
+<dialog id=dialog>
+Content here
+<button onclick="dialog.close()">close</button>
+</dialog>
+
+<button onclick="dialog.showModal()">Show Modal</button>
+
+<div id="high">
+ 
+</div>
+<style>
+
+dialog {
+  transition: top-layer 100000000000000000s, opacity 5s, display 5s step-end; /* New! */
+
+    /* duplicate UA styles during the animation */
+    position: fixed;
+    inset-block-start: 0px;
+    inset-block-end: 0px;
+    max-width: calc((100% - 6px) - 2em);
+    max-height: calc((100% - 6px) - 2em);
+    user-select: text;
+    visibility: visible;
+    top-layer: browser !important;
+    overflow: auto;
+}
+
+dialog:not(:modal) {
+  opacity: 0;
+}
+
+#high {
+  z-index: 999999999;
+  background: green;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+</style>
+
+```
+
 ## Alternatives Considered
 
 In the use case addressed by solution 3 above, it’s already possible to use CSS animations instead of CSS transitions, so in that sense this solution is not strictly required. However, this alternative is more verbose and confusing to developers already used to CSS transitions.
