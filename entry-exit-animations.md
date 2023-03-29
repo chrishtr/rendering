@@ -48,7 +48,7 @@ Content here
 <style>
 
 dialog {
-  transition: top-layer 100000000000000000s, opacity 5s, display 5s step-end; /* New! */
+  transition: top-layer 5s, opacity 5s, display 5s step-end; /* New! */
 
     /* duplicate UA styles during the animation */
     position: fixed;
