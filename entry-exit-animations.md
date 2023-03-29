@@ -4,10 +4,13 @@
 
 Appropriate animations are a [great way](https://www.nngroup.com/articles/animation-purpose-ux/) to help users build an accurate mental model of how a web page UI works and therefore increase usability of a web site, and are important for a UI to feel polished and fluid to users. A common example is elements being visible or modal on the page only when they are “open”. Entry and exit animations for such elements are types of animations where an element enters or exits (respectively) the visible screen, or substantially changes their rendering in some other way; examples include dismissible [dialogs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog), [popovers](https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute), or similar UI patterns that do not use those built-in elements.
 
-There are currently several gaps in declarative web platform APIs for these use cases:
-Animations or transitions involving the [display](https://developer.mozilla.org/en-US/docs/Web/CSS/display) CSS property do not work.
-Some use cases work with [CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) but not [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions).
-Animations and transitions are impossible to coordinate with entry or exit from the [top layer](https://developer.chrome.com/blog/what-is-the-top-layer/).
+There are currently several gaps in declarative web platform APIs for the entry and exit animations in particular:
+
+* Animations or transitions involving the [display](https://developer.mozilla.org/en-US/docs/Web/CSS/display) CSS property do not work.
+
+* Some use cases work with [CSS animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) but not [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions).
+
+* Animations and transitions are impossible to coordinate with entry or exit from the [top layer](https://developer.chrome.com/blog/what-is-the-top-layer/).
 
 We propose to close those gaps.
 
