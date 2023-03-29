@@ -28,6 +28,10 @@ We propose to close those gaps.
 
 With these five changes, web developers will be able to use CSS transitions and CSS animations for discrete-animatable properties, the display CSS property, and a CSS transition (but not CSS animations; see Alternatives Considered for why) for the top layer.
 
+## Example code
+
+Instructions for a complete working example that works on Chrome Canary (with flags on) is [here](https://github.com/w3c/csswg-drafts/issues/8189#issuecomment-1464556841).
+
 ## Alternatives Considered
 
 In the use case addressed by solution 3 above, it’s already possible to use CSS animations instead of CSS transitions, so in that sense this solution is not strictly required. However, this alternative is more verbose and confusing to developers already used to CSS transitions.
