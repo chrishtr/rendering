@@ -77,7 +77,7 @@ dialog:not(:modal) {
 
 ```
 
-And a demo of an entry animation for an element with `popover` that uses CSS transitions is [here]([url](https://jsbin.com/tigicuj/edit?html,output)).
+And a demo of an entry animation for an element with `popover` that uses CSS transitions is [here](https://jsbin.com/tigicuj/edit?html,output).
 
 Inline:
 
