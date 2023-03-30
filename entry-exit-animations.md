@@ -30,7 +30,7 @@ With these five changes, web developers will be able to use CSS transitions and 
 
 ## Example code
 
-Instructions for a complete working example that works on Chrome Canary (with flags on) is [here](https://github.com/w3c/csswg-drafts/issues/8189#issuecomment-1464556841).
+Instructions for a complete working example of an exit animation for a `<dialog>` element is [here](https://github.com/w3c/csswg-drafts/issues/8189#issuecomment-1464556841).
 
 Inline:
 
@@ -73,6 +73,33 @@ dialog:not(:modal) {
   height: 100%;
   width: 100%;
 }
+</style>
+
+```
+
+And a demo of an entry animation for an element with `popover` that uses CSS transitions is [here]([url](https://jsbin.com/tigicuj/edit?html,output)).
+
+Inline:
+
+```
+<button popovertoggletarget=f popovertarget=f>Toggle the popover</button>
+<div popover=auto id=f>I'm a Popover! I should animate.</div>
+
+<style>
+  [popover],
+  [popover]:initial {
+    opacity: 0;
+    transition: display 0.5s, top-layer 0.5s, opacity 0.5;
+  }
+  [popover]:open {
+    opacity: 1;
+  }
+  [popover] {
+    top: 100px;
+    left:100px;
+    right:auto;
+    bottom:auto;
+  }
 </style>
 
 ```
