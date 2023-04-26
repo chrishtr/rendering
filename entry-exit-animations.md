@@ -16,7 +16,7 @@ We propose to close those gaps.
 
 ## Proposed solution
 
-1. Support CSS transitions for [discrete](https://drafts.csswg.org/web-animations-1/#discrete) properties. Currently they can be CSS animated but not CSS transitioned. It’s tracked in [this CSSWG issue](https://github.com/w3c/csswg-drafts/issues/4441) for standardization and [this chromestatus entry](https://chromestatus.com/feature/5071230636392448). This is a prerequisite for 2 and 4 below.
+1. Support CSS transitions for [discrete](https://drafts.csswg.org/web-animations-1/#discrete) properties, and for discrete states of continuous properties (e.g. the `auto` value of `width`). Currently they can be CSS animated but not CSS transitioned. It’s tracked in [this CSSWG issue](https://github.com/w3c/csswg-drafts/issues/4441) for standardization and [this chromestatus entry](https://chromestatus.com/feature/5071230636392448). This is a prerequisite for 2 and 4 below.
 
 2. Support animating and transitioning the display css property. Currently it is impossible to use display in an animation or transition. It’s tracked in [this CSSWG issue](https://github.com/w3c/csswg-drafts/issues/6429) for standardization and [this chromestatus entry](https://chromestatus.com/feature/5154958272364544).
 
