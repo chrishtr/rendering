@@ -48,7 +48,7 @@ Content here
 <style>
 
 dialog {
-  transition: top-layer 5s, opacity 5s, display 5s step-end; /* New! */
+  transition: overlay 5s, opacity 5s, display 5s step-end; /* New! */
 
     /* duplicate UA styles during the animation */
     position: fixed;
@@ -58,7 +58,7 @@ dialog {
     max-height: calc((100% - 6px) - 2em);
     user-select: text;
     visibility: visible;
-    top-layer: browser !important;
+    overlay: browser !important;
     overflow: auto;
 }
 
@@ -89,7 +89,7 @@ Inline:
   [popover],
   [popover]:initial {
     opacity: 0;
-    transition: display 0.5s, top-layer 0.5s, opacity 0.5;
+    transition: display 0.5s, overlay 0.5s, opacity 0.5;
   }
   [popover]:open {
     opacity: 1;
@@ -110,4 +110,4 @@ In the use case addressed by solution 3 above, it’s already possible to use CS
 
 For solution 4, an alternative could be for the user agent to automatically detect animations when entering or exiting the top layer. This was prototyped in Chromium and discussed in detail [here](https://github.com/whatwg/html/issues/7785) (see comments towards the end). The proposal in this document is more explicit and simple than the alternative described there. Another alternative could be to directly expose the `overlay` CSS property in all cases, but that would result in circularity and loss of UA-guaranteed accessibility for existing top-layer elements (which are: fullscreen, dialog and popover, all of which are UA controlled to ensure accessibility).
 
-Similarly, the `overlay` CSS property could be exposed to CSS animations in addition to CSS transitions. On top of introducing the problems of directly exposing a top-layer CSS property, this would also: allow unbounded-in-time animations (and therefore lead to top layer elements failing to ever open or close); and lead to other implementation complications in the implementation of the [CSS cascade](https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
+Similarly, the `overlay` CSS property could be exposed to CSS animations in addition to CSS transitions. On top of introducing the problems of directly exposing an top-layer CSS property, this would also: allow unbounded-in-time animations (and therefore lead to top layer elements failing to ever open or close); and lead to other implementation complications in the implementation of the [CSS cascade](https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
